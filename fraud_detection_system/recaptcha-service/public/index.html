@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudGuard® - Secure Login</title>
+
+    <!-- Google reCAPTCHA v2 Script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #2c6aa0;
+            --accent: #e63946;
+            --success: #388e3c;
+            --error: #d32f2f;
+            --light: #f1faee;
+            --dark: #1d3557;
+            --gray: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--light);
+            color: var(--success);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(44, 106, 160, 0.1);
+        }
+
+        input.error {
+            border-color: var(--error);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .recaptcha-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .recaptcha-error {
+            color: var(--error);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .recaptcha-error.show {
+            display: block;
+        }
+
+        .btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #c1121f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn.loading::after {
+            content: "";
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            display: inline-block;
+            animation: spin 0.6s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #e8f5e9;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .alert-error {
+            background: #ffebee;
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .info-text {
+            text-align: center;
+            color: var(--gray);
+            font-size: 12px;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .info-text a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .info-text a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <div>Fraud<span>Guard</span>®</div>
+            </div>
+            <p class="subtitle">Secure Authentication Portal</p>
+            <div class="security-badge">
+                🔒 Protected by reCAPTCHA
+            </div>
+        </div>
+
+        <!-- Alert Messages -->
+        <div id="alert-success" class="alert alert-success"></div>
+        <div id="alert-error" class="alert alert-error"></div>
+
+        <!-- Login Form -->
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Email or Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
+                    placeholder="Enter your email"
+                    autocomplete="username"
+                >
+                <div class="error-message" id="username-error">Please enter your username</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                >
+                <div class="error-message" id="password-error">Please enter your password</div>
+            </div>
+
+            <div class="divider">
+                <span>Security Verification</span>
+            </div>
+
+            <!-- reCAPTCHA Widget -->
+            <div class="recaptcha-container">
+                <div class="g-recaptcha" data-sitekey="SITE_KEY_PLACEHOLDER"></div>
+            </div>
+            <div class="recaptcha-error" id="recaptcha-error">
+                Please complete the CAPTCHA verification
+            </div>
+
+            <button type="submit" class="btn" id="submit-btn">
+                Sign In Securely
+            </button>
+        </form>
+
+        <div class="info-text">
+            By signing in, you agree to our fraud prevention measures.<br>
+            This system is protected by Google reCAPTCHA to prevent automated attacks.<br>
+            <a href="https://policies.google.com/privacy">Privacy</a> |
+            <a href="https://policies.google.com/terms">Terms</a>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        let SITE_KEY = 'SITE_KEY_PLACEHOLDER'; // Will be loaded from backend
+
+        // DOM Elements
+        const form = document.getElementById('login-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const alertSuccess = document.getElementById('alert-success');
+        const alertError = document.getElementById('alert-error');
+        const recaptchaError = document.getElementById('recaptcha-error');
+
+        /**
+         * Load site key from backend on page load
+         */
+        async function loadSiteKey() {
+            try {
+                const response = await fetch('/api/site-key');
+                const data = await response.json();
+
+                if (data.siteKey) {
+                    SITE_KEY = data.siteKey;
+                    console.log('✅ Site key loaded successfully');
+
+                    // Update reCAPTCHA widget with actual site key
+                    const recaptchaDiv = document.querySelector('.g-recaptcha');
+                    recaptchaDiv.setAttribute('data-sitekey', SITE_KEY);
+
+                    // Re-render reCAPTCHA if already loaded
+                    if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
+                        grecaptcha.render(recaptchaDiv, {
+                            'sitekey': SITE_KEY
+                        });
+                    }
+                } else {
+                    console.error('❌ Failed to load site key');
+                }
+            } catch (error) {
+                console.error('❌ Error loading site key:', error);
+                showError('Configuration error. Please contact support.');
+            }
+        }
+
+        /**
+         * Show success message
+         */
+        function showSuccess(message) {
+            alertSuccess.textContent = message;
+            alertSuccess.classList.add('show');
+            alertError.classList.remove('show');
+        }
+
+        /**
+         * Show error message
+         */
+        function showError(message) {
+            alertError.textContent = message;
+            alertError.classList.add('show');
+            alertSuccess.classList.remove('show');
+        }
+
+        /**
+         * Hide all alerts
+         */
+        function hideAlerts() {
+            alertSuccess.classList.remove('show');
+            alertError.classList.remove('show');
+        }
+
+        /**
+         * Validate form inputs
+         */
+        function validateForm() {
+            let isValid = true;
+
+            // Validate username
+            if (!usernameInput.value.trim()) {
+                usernameInput.classList.add('error');
+                document.getElementById('username-error').classList.add('show');
+                isValid = false;
+            } else {
+                usernameInput.classList.remove('error');
+                document.getElementById('username-error').classList.remove('show');
+            }
+
+            // Validate password
+            if (!passwordInput.value.trim()) {
+                passwordInput.classList.add('error');
+                document.getElementById('password-error').classList.add('show');
+                isValid = false;
+            } else {
+                passwordInput.classList.remove('error');
+                document.getElementById('password-error').classList.remove('show');
+            }
+
+            return isValid;
+        }
+
+        /**
+         * Handle form submission
+         */
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideAlerts();
+
+            // Validate form inputs
+            if (!validateForm()) {
+                return;
+            }
+
+            // Get reCAPTCHA response
+            const recaptchaResponse = grecaptcha.getResponse();
+
+            if (!recaptchaResponse) {
+                recaptchaError.classList.add('show');
+                showError('Please complete the CAPTCHA verification');
+                return;
+            }
+
+            recaptchaError.classList.remove('show');
+
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Verifying...';
+
+            try {
+                // Send login request with CAPTCHA token
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: usernameInput.value,
+                        password: passwordInput.value,
+                        'g-recaptcha-response': recaptchaResponse
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Success!
+                    showSuccess('✅ Login successful! Redirecting...');
+                    console.log('Login successful:', data);
+
+                    // In production, redirect to dashboard:
+                    // setTimeout(() => {
+                    //     window.location.href = '/dashboard';
+                    // }, 1500);
+
+                    // Reset form
+                    form.reset();
+                    grecaptcha.reset();
+                } else {
+                    // Failed
+                    showError(data.message || 'Login failed. Please try again.');
+                    grecaptcha.reset();
+                }
+
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('An error occurred. Please try again.');
+                grecaptcha.reset();
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'Sign In Securely';
+            }
+        });
+
+        // Clear errors on input
+        usernameInput.addEventListener('input', () => {
+            usernameInput.classList.remove('error');
+            document.getElementById('username-error').classList.remove('show');
+        });
+
+        passwordInput.addEventListener('input', () => {
+            passwordInput.classList.remove('error');
+            document.getElementById('password-error').classList.remove('show');
+        });
+
+        // Load site key when page loads
+        window.addEventListener('DOMContentLoaded', loadSiteKey);
+
+        // Optional: Log when reCAPTCHA is ready
+        window.onRecaptchaLoad = function() {
+            console.log('✅ reCAPTCHA loaded successfully');
+        };
+    </script>
+</body>
+</html>

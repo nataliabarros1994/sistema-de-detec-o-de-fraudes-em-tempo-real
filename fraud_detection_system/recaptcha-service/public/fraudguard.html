@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudGuard® - Autenticação Segura</title>
+    <!-- reCAPTCHA will be loaded dynamically with the correct site key -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+        }
+
+        .form-container {
+            padding: 30px;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input.error {
+            border-color: #dc3545;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .captcha-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .alert.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .password-requirements {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            padding-left: 5px;
+        }
+
+        .password-requirements li {
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span>🛡️</span>
+                FraudGuard®
+            </h1>
+            <p>Sistema de Detecção de Fraudes em Tempo Real</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('login')">Login</button>
+            <button class="tab" onclick="switchTab('register')">Cadastrar</button>
+        </div>
+
+        <div class="form-container">
+            <!-- Alert Messages -->
+            <div id="alert" class="alert"></div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="form-section active">
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">E-mail</label>
+                        <input
+                            type="email"
+                            id="login-email"
+                            name="email"
+                            placeholder="seu@email.com"
+                            required
+                        >
+                        <div class="error-message" id="login-email-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Senha</label>
+                        <input
+                            type="password"
+                            id="login-password"
+                            name="password"
+                            placeholder="••••••••"
+                            required
+                        >
+                        <div class="error-message" id="login-password-error"></div>
+                    </div>
+
+                    <div class="captcha-container">
+                        <div id="login-recaptcha" class="g-recaptcha" data-sitekey=""></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="login-btn">
+                        Entrar
+                    </button>
+
+                    <div class="forgot-password">
+                        <a href="#" onclick="alert('Funcionalidade em desenvolvimento'); return false;">
+                            Esqueceu sua senha?
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="form-section">
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="register-name">Nome Completo</label>
+                        <input
+                            type="text"
+                            id="register-name"
+                            name="name"
+                            placeholder="João Silva"
+                            required
+                        >
+                        <div class="error-message" id="register-name-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-email">E-mail</label>
+                        <input
+                            type="email"
+                            id="register-email"
+                            name="email"
+                            placeholder="seu@email.com"
+                            required
+                        >
+                        <div class="error-message" id="register-email-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-password">Senha</label>
+                        <input
+                            type="password"
+                            id="register-password"
+                            name="password"
+                            placeholder="••••••••"
+                            required
+                            minlength="6"
+                        >
+                        <ul class="password-requirements">
+                            <li>Mínimo 6 caracteres</li>
+                        </ul>
+                        <div class="error-message" id="register-password-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-password-confirm">Confirmar Senha</label>
+                        <input
+                            type="password"
+                            id="register-password-confirm"
+                            name="password_confirm"
+                            placeholder="••••••••"
+                            required
+                        >
+                        <div class="error-message" id="register-password-confirm-error"></div>
+                    </div>
+
+                    <div class="captcha-container">
+                        <div id="register-recaptcha" class="g-recaptcha" data-sitekey=""></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="register-btn">
+                        Criar Conta
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🔒 Protegido por reCAPTCHA do Google e FraudGuard®</p>
+            <p style="margin-top: 5px;">Detecção inteligente de fraudes em tempo real</p>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let recaptchaSiteKey = null;
+        let loginRecaptchaId = null;
+        let registerRecaptchaId = null;
+
+        // Initialize reCAPTCHA on page load
+        async function initRecaptcha() {
+            try {
+                // Fetch the site key from the server
+                const response = await fetch('/api/site-key');
+                const data = await response.json();
+
+                if (data.siteKey) {
+                    recaptchaSiteKey = data.siteKey;
+                    console.log('✅ reCAPTCHA site key loaded:', data.siteKey.substring(0, 20) + '...');
+
+                    // Set the data-sitekey attributes
+                    document.getElementById('login-recaptcha').setAttribute('data-sitekey', recaptchaSiteKey);
+                    document.getElementById('register-recaptcha').setAttribute('data-sitekey', recaptchaSiteKey);
+
+                    // Load the reCAPTCHA script dynamically
+                    const script = document.createElement('script');
+                    script.src = 'https://www.google.com/recaptcha/api.js';
+                    script.async = true;
+                    script.defer = true;
+                    document.head.appendChild(script);
+
+                    // Wait for reCAPTCHA to be ready
+                    script.onload = function() {
+                        console.log('✅ reCAPTCHA script loaded successfully');
+                    };
+                } else {
+                    console.error('❌ Failed to load reCAPTCHA site key');
+                    showAlert('Erro ao carregar CAPTCHA. Por favor, recarregue a página.', 'error');
+                }
+            } catch (error) {
+                console.error('❌ Error loading reCAPTCHA:', error);
+                showAlert('Erro ao carregar CAPTCHA. Por favor, recarregue a página.', 'error');
+            }
+        }
+
+        // Load reCAPTCHA when page loads
+        window.addEventListener('DOMContentLoaded', initRecaptcha);
+
+        // Switch between login and register tabs
+        function switchTab(tab) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update forms
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+            document.getElementById(tab + '-form').classList.add('active');
+
+            // Clear alert
+            hideAlert();
+
+            // Reset reCAPTCHA
+            if (typeof grecaptcha !== 'undefined') {
+                grecaptcha.reset();
+            }
+        }
+
+        // Show alert message
+        function showAlert(message, type = 'info') {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type} show`;
+        }
+
+        // Hide alert message
+        function hideAlert() {
+            const alert = document.getElementById('alert');
+            alert.classList.remove('show');
+        }
+
+        // Show error on input
+        function showError(inputId, message) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(inputId + '-error');
+            input.classList.add('error');
+            error.textContent = message;
+            error.classList.add('show');
+        }
+
+        // Clear error on input
+        function clearError(inputId) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(inputId + '-error');
+            input.classList.remove('error');
+            error.classList.remove('show');
+        }
+
+        // Clear all errors
+        function clearAllErrors() {
+            document.querySelectorAll('input').forEach(input => {
+                input.classList.remove('error');
+            });
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.classList.remove('show');
+            });
+        }
+
+        // Handle login
+        async function handleLogin(event) {
+            event.preventDefault();
+            clearAllErrors();
+            hideAlert();
+
+            const btn = document.getElementById('login-btn');
+            const btnText = btn.textContent;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Verificando...';
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const captchaResponse = grecaptcha.getResponse();
+
+            // Validate CAPTCHA
+            if (!captchaResponse) {
+                showAlert('Por favor, complete o CAPTCHA', 'error');
+                btn.disabled = false;
+                btn.textContent = btnText;
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: email,
+                        password: password,
+                        'g-recaptcha-response': captchaResponse
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    showAlert('Login realizado com sucesso! Redirecionando...', 'success');
+
+                    // Store user token
+                    localStorage.setItem('fraudguard_token', data.token);
+                    localStorage.setItem('fraudguard_user', JSON.stringify(data.user));
+
+                    // Redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html';
+                    }, 1500);
+                } else {
+                    showAlert(data.message || 'Erro ao fazer login', 'error');
+                    grecaptcha.reset();
+                }
+            } catch (error) {
+                showAlert('Erro de conexão. Tente novamente.', 'error');
+                console.error('Login error:', error);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = btnText;
+            }
+        }
+
+        // Handle register
+        async function handleRegister(event) {
+            event.preventDefault();
+            clearAllErrors();
+            hideAlert();
+
+            const btn = document.getElementById('register-btn');
+            const btnText = btn.textContent;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Criando conta...';
+
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const passwordConfirm = document.getElementById('register-password-confirm').value;
+            const captchaResponse = grecaptcha.getResponse(1); // Second captcha widget
+
+            // Validate password match
+            if (password !== passwordConfirm) {
+                showError('register-password-confirm', 'As senhas não coincidem');
+                btn.disabled = false;
+                btn.textContent = btnText;
+                return;
+            }
+
+            // Validate CAPTCHA
+            if (!captchaResponse) {
+                showAlert('Por favor, complete o CAPTCHA', 'error');
+                btn.disabled = false;
+                btn.textContent = btnText;
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        password: password,
+                        'g-recaptcha-response': captchaResponse
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    showAlert('Conta criada com sucesso! Redirecionando...', 'success');
+
+                    // Store user token
+                    localStorage.setItem('fraudguard_token', data.token);
+                    localStorage.setItem('fraudguard_user', JSON.stringify(data.user));
+
+                    // Redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html';
+                    }, 1500);
+                } else {
+                    showAlert(data.message || 'Erro ao criar conta', 'error');
+                    grecaptcha.reset(1);
+                }
+            } catch (error) {
+                showAlert('Erro de conexão. Tente novamente.', 'error');
+                console.error('Register error:', error);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = btnText;
+            }
+        }
+
+        // Clear errors on input
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                clearError(this.id);
+            });
+        });
+    </script>
+</body>
+</html>

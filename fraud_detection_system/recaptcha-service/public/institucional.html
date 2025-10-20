@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FraudGuard® Risk Solutions - Soluções inteligentes de prevenção à fraude com IA e Machine Learning em tempo real">
+    <meta name="keywords" content="prevenção de fraude, detecção de fraude, segurança financeira, IA, machine learning">
+    <title>FraudGuard® Risk Solutions - Prevenção Inteligente de Fraudes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --dark-color: #2d3748;
+            --light-color: #f7fafc;
+            --success-color: #48bb78;
+            --warning-color: #f6ad55;
+            --error-color: #fc8181;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .btn-cta {
+            background: white;
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 150px 20px 100px;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s 0.2s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s 0.4s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: white;
+            padding: 60px 20px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 20px;
+            background: var(--light-color);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark-color);
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--primary-color);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 1.5rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .feature-content h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .feature-content p {
+            color: #666;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--light-color);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--dark-color);
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .faq-answer p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea,
+        .form-group.error select {
+            border-color: var(--error-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.25rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #c6f6d5;
+            color: #22543d;
+            display: block;
+        }
+
+        .form-message.error {
+            background: #fed7d7;
+            color: #742a2a;
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-color);
+                flex-direction: column;
+                padding: 1rem;
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                FraudGuard®
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#services">Serviços</a></li>
+                <li><a href="#features">Recursos</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact" class="btn-cta">Fale com Especialista</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Proteja Seu Negócio Contra Fraudes em Tempo Real</h1>
+            <p>
+                Soluções inteligentes de prevenção à fraude com IA e Machine Learning.
+                Detecção instantânea, bloqueio automático e análise preditiva.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Fale com um Especialista</a>
+                <a href="/fraudguard.html" class="btn btn-secondary">Acessar Sistema</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">99.8%</div>
+                <div class="stat-label">Taxa de Detecção</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">&lt;50ms</div>
+                <div class="stat-label">Tempo de Resposta</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">500K+</div>
+                <div class="stat-label">Transações/Dia</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Monitoramento</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div>
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
+                     alt="Analytics Dashboard" class="about-image">
+            </div>
+            <div class="about-content">
+                <h2>A FraudGuard® Risk Solutions</h2>
+                <p>
+                    Somos especialistas em prevenção e detecção de fraudes com mais de 10 anos
+                    de experiência no mercado. Nossa plataforma utiliza inteligência artificial
+                    e machine learning para identificar padrões suspeitos em tempo real.
+                </p>
+                <p>
+                    Protegemos empresas de todos os tamanhos contra perdas financeiras causadas
+                    por fraudes, mantendo a experiência do usuário legítimo intacta.
+                </p>
+                <p>
+                    <strong>Nossa missão:</strong> Tornar o ambiente digital mais seguro através
+                    de tecnologia de ponta e análise inteligente de riscos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Nossos Serviços</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Detecção por IA</h3>
+                <p>
+                    Machine learning avançado que aprende continuamente com novos padrões
+                    de fraude, mantendo sua proteção sempre atualizada.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Proteção em Tempo Real</h3>
+                <p>
+                    Análise instantânea de cada transação com decisões automáticas
+                    de aprovação ou bloqueio em menos de 50ms.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Análise de Risco</h3>
+                <p>
+                    Score de fraude personalizado para cada transação com base em
+                    múltiplas variáveis comportamentais e contextuais.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Proteção Anti-Bot</h3>
+                <p>
+                    Integração com reCAPTCHA e sistemas proprietários para bloquear
+                    acessos automatizados e ataques em massa.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>Armazenamento Seguro</h3>
+                <p>
+                    Sistema de fraud scoring persistente com Redis, mantendo histórico
+                    completo para análise e auditoria.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>Alertas Inteligentes</h3>
+                <p>
+                    Notificações automáticas quando padrões suspeitos são detectados,
+                    permitindo ação rápida da sua equipe.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Recursos Avançados</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Dashboard em Tempo Real</h4>
+                    <p>Visualize todas as métricas importantes em um painel intuitivo</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Bloqueio Automático</h4>
+                    <p>IPs suspeitos são bloqueados automaticamente ao atingir threshold</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Score Decay</h4>
+                    <p>Pontuações diminuem automaticamente ao longo do tempo</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Configurável</h4>
+                    <p>Ajuste thresholds e parâmetros conforme suas necessidades</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-sync"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>API RESTful</h4>
+                    <p>Integração fácil com qualquer sistema através de API</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="feature-content">
+                    <h4>Relatórios Detalhados</h4>
+                    <p>Análises completas de padrões e tendências de fraude</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <h2 class="section-title">Perguntas Frequentes</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Como funciona a detecção de fraudes em tempo real?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        Nosso sistema analisa cada transação em menos de 50ms, verificando múltiplas
+                        variáveis como IP, localização, dispositivo, comportamento do usuário e padrões
+                        históricos. Machine learning identifica anomalias e toma decisões automáticas
+                        de aprovação ou bloqueio.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>O sistema afeta a experiência de usuários legítimos?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        Não. Nossa tecnologia é projetada para ser invisível para usuários legítimos.
+                        Apenas quando comportamentos suspeitos são detectados, medidas adicionais como
+                        CAPTCHA são solicitadas. A taxa de falsos positivos é inferior a 0.2%.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Quanto tempo leva para implementar a solução?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        A implementação básica pode ser feita em 1-2 dias. Oferecemos integração via
+                        API REST simples, com documentação completa e suporte técnico. Para integrações
+                        mais complexas ou personalizadas, o prazo varia de 1-2 semanas.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Quais tipos de fraude o sistema detecta?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        Detectamos diversos tipos: criação de contas falsas, ataques de bots, fraude de
+                        cartão de crédito, account takeover, testes de cartão, fraude de afiliados,
+                        manipulação de promoções, e muito mais. O sistema aprende continuamente com novos
+                        padrões.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Como funciona o modelo de precificação?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        Oferecemos planos flexíveis baseados no volume de transações analisadas. Temos
+                        opções para startups (gratuito até 10k transações/mês), empresas em crescimento
+                        e grandes corporações. Entre em contato para um plano personalizado.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>O sistema está em conformidade com LGPD/GDPR?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        Sim. Somos totalmente compatíveis com LGPD, GDPR e outras regulamentações de
+                        privacidade. Todos os dados são criptografados, armazenados com segurança e
+                        processados conforme as melhores práticas de proteção de dados.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Fale com um Especialista</h2>
+            <p>Preencha o formulário e nossa equipe entrará em contato em até 24 horas</p>
+
+            <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Nome Completo *</label>
+                        <input type="text" id="name" name="name" required>
+                        <span class="error-message">Por favor, informe seu nome</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Empresa *</label>
+                        <input type="text" id="company" name="company" required>
+                        <span class="error-message">Por favor, informe sua empresa</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">E-mail Corporativo *</label>
+                        <input type="email" id="email" name="email" required>
+                        <span class="error-message">Por favor, informe um e-mail válido</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefone *</label>
+                        <input type="tel" id="phone" name="phone" required
+                               placeholder="(11) 99999-9999">
+                        <span class="error-message">Por favor, informe seu telefone</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Serviço de Interesse *</label>
+                    <select id="service" name="service" required>
+                        <option value="">Selecione...</option>
+                        <option value="detection">Detecção por IA</option>
+                        <option value="realtime">Proteção em Tempo Real</option>
+                        <option value="risk">Análise de Risco</option>
+                        <option value="antibot">Proteção Anti-Bot</option>
+                        <option value="all">Solução Completa</option>
+                        <option value="other">Outro</option>
+                    </select>
+                    <span class="error-message">Por favor, selecione um serviço</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Mensagem *</label>
+                    <textarea id="message" name="message" required
+                              placeholder="Conte-nos mais sobre suas necessidades..."></textarea>
+                    <span class="error-message">Por favor, escreva uma mensagem</span>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <span id="btnText">Enviar Mensagem</span>
+                    <span id="btnLoading" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i> Enviando...
+                    </span>
+                </button>
+
+                <div class="form-message" id="formMessage"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3><i class="fas fa-shield-alt"></i> FraudGuard®</h3>
+                <p>
+                    Soluções inteligentes de prevenção à fraude com IA e Machine Learning.
+                    Protegendo negócios desde 2015.
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <a href="#home">Início</a>
+                <a href="#about">Sobre</a>
+                <a href="#services">Serviços</a>
+                <a href="#features">Recursos</a>
+                <a href="/fraudguard.html">Acessar Sistema</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Serviços</h3>
+                <a href="#services">Detecção por IA</a>
+                <a href="#services">Proteção em Tempo Real</a>
+                <a href="#services">Análise de Risco</a>
+                <a href="#services">Proteção Anti-Bot</a>
+                <a href="#services">Dashboard Admin</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p><i class="fas fa-envelope"></i> contato@fraudguard.com</p>
+                <p><i class="fas fa-phone"></i> +55 (11) 4002-8922</p>
+                <p><i class="fas fa-map-marker-alt"></i> São Paulo - SP, Brasil</p>
+                <p><i class="fas fa-clock"></i> Seg-Sex: 9h às 18h</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 FraudGuard® Risk Solutions. Todos os direitos reservados.</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="#" style="display: inline;">Política de Privacidade</a> |
+                <a href="#" style="display: inline; margin-left: 1rem;">Termos de Uso</a> |
+                <a href="#" style="display: inline; margin-left: 1rem;">LGPD</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Form Validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            const cleaned = phone.replace(/\D/g, '');
+            return cleaned.length >= 10;
+        }
+
+        function showError(fieldId, show = true) {
+            const formGroup = document.getElementById(fieldId).parentElement;
+            if (show) {
+                formGroup.classList.add('error');
+            } else {
+                formGroup.classList.remove('error');
+            }
+        }
+
+        // Real-time validation
+        document.getElementById('email').addEventListener('blur', function() {
+            if (this.value && !validateEmail(this.value)) {
+                showError('email');
+            } else {
+                showError('email', false);
+            }
+        });
+
+        document.getElementById('phone').addEventListener('blur', function() {
+            if (this.value && !validatePhone(this.value)) {
+                showError('phone');
+            } else {
+                showError('phone', false);
+            }
+        });
+
+        // Clear errors on input
+        ['name', 'company', 'email', 'phone', 'service', 'message'].forEach(field => {
+            document.getElementById(field).addEventListener('input', function() {
+                showError(field, false);
+            });
+        });
+
+        // Form Submission
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const company = document.getElementById('company').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value.trim();
+
+            // Validate
+            let isValid = true;
+
+            if (!name) {
+                showError('name');
+                isValid = false;
+            }
+            if (!company) {
+                showError('company');
+                isValid = false;
+            }
+            if (!email || !validateEmail(email)) {
+                showError('email');
+                isValid = false;
+            }
+            if (!phone || !validatePhone(phone)) {
+                showError('phone');
+                isValid = false;
+            }
+            if (!service) {
+                showError('service');
+                isValid = false;
+            }
+            if (!message) {
+                showError('message');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Show loading
+            const btnText = document.getElementById('btnText');
+            const btnLoading = document.getElementById('btnLoading');
+            const submitBtn = document.querySelector('.btn-submit');
+
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+            submitBtn.disabled = true;
+
+            // Simulate API call (replace with real endpoint)
+            setTimeout(() => {
+                // Success
+                const formMessage = document.getElementById('formMessage');
+                formMessage.className = 'form-message success';
+                formMessage.innerHTML = `
+                    <strong><i class="fas fa-check-circle"></i> Mensagem enviada com sucesso!</strong><br>
+                    Nossa equipe entrará em contato em até 24 horas.
+                `;
+
+                // Reset form
+                document.getElementById('contactForm').reset();
+
+                // Reset button
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitBtn.disabled = false;
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }, 1500);
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('navMenu').classList.remove('active');
+                }
+            });
+        });
+
+        // Phone Mask
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.substr(0, 11);
+
+            if (value.length > 10) {
+                value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+            } else if (value.length > 0) {
+                value = value.replace(/^(\d*)/, '($1');
+            }
+
+            e.target.value = value;
+        });
+
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-card, .service-card, .feature-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

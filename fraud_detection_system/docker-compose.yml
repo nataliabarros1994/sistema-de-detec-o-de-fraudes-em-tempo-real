@@ -1,0 +1,162 @@
+# ===================================================================
+# Docker Compose - Sistema de Detecção de Fraudes
+# ===================================================================
+# Este arquivo orquestra todos os serviços necessários para o sistema:
+# - Redis: Cache e storage
+# - Prometheus: Monitoramento (opcional)
+# - API: Aplicação principal (comentado - rode localmente para dev)
+#
+# Uso:
+#   docker-compose up -d        # Inicia todos os serviços
+#   docker-compose down         # Para todos os serviços
+#   docker-compose logs -f      # Visualiza logs
+#
+# Autor: Natália Barros
+# Data: 2025
+# ===================================================================
+
+version: '3.8'
+
+services:
+  # ================================================================
+  # REDIS - Cache e Storage
+  # ================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: fraud-detection-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+    networks:
+      - fraud-detection-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ================================================================
+  # PROMETHEUS - Monitoramento (Opcional)
+  # ================================================================
+  # Descomente para habilitar monitoramento com Prometheus
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: fraud-detection-prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #     - prometheus_data:/prometheus
+  #   command:
+  #     - '--config.file=/etc/prometheus/prometheus.yml'
+  #     - '--storage.tsdb.path=/prometheus'
+  #     - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+  #     - '--web.console.templates=/usr/share/prometheus/consoles'
+  #   restart: unless-stopped
+  #   networks:
+  #     - fraud-detection-network
+
+  # ================================================================
+  # GRAFANA - Dashboards (Opcional)
+  # ================================================================
+  # Descomente para visualização de métricas com Grafana
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: fraud-detection-grafana
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - grafana_data:/var/lib/grafana
+  #   environment:
+  #     - GF_SECURITY_ADMIN_PASSWORD=admin
+  #     - GF_USERS_ALLOW_SIGN_UP=false
+  #   restart: unless-stopped
+  #   networks:
+  #     - fraud-detection-network
+  #   depends_on:
+  #     - prometheus
+
+  # ================================================================
+  # API - Aplicação FastAPI (Para produção)
+  # ================================================================
+  # Descomente para executar a API em container
+  # Para desenvolvimento, recomenda-se executar localmente:
+  #   python -m app.main
+  #
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: fraud-detection-api
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - REDIS_HOST=redis
+  #     - REDIS_PORT=6379
+  #     - LOG_LEVEL=info
+  #   volumes:
+  #     - ./models:/app/models
+  #     - ./data:/app/data
+  #   depends_on:
+  #     - redis
+  #   restart: unless-stopped
+  #   networks:
+  #     - fraud-detection-network
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 40s
+
+# ===================================================================
+# VOLUMES - Persistência de Dados
+# ===================================================================
+volumes:
+  redis_data:
+    driver: local
+  # prometheus_data:
+  #   driver: local
+  # grafana_data:
+  #   driver: local
+
+# ===================================================================
+# NETWORKS - Rede Interna
+# ===================================================================
+networks:
+  fraud-detection-network:
+    driver: bridge
+
+# ===================================================================
+# NOTAS DE USO:
+#
+# 1. Iniciar apenas o Redis (recomendado para desenvolvimento):
+#    docker-compose up -d redis
+#
+# 2. Verificar status dos serviços:
+#    docker-compose ps
+#
+# 3. Ver logs do Redis:
+#    docker-compose logs -f redis
+#
+# 4. Parar todos os serviços:
+#    docker-compose down
+#
+# 5. Parar e remover volumes (CUIDADO - apaga dados):
+#    docker-compose down -v
+#
+# 6. Acessar Redis CLI:
+#    docker-compose exec redis redis-cli
+#
+# 7. Para produção, descomente o serviço 'api' e configure
+#    variáveis de ambiente apropriadas
+# ===================================================================

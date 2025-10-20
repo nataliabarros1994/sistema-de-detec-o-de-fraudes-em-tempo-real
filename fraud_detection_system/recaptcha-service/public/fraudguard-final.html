@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FraudGuard® - Enterprise fraud prevention with real-time AI detection. Protect your business with 99.8% accuracy.">
+    <meta name="keywords" content="fraud prevention, fraud detection, machine learning security, payment fraud">
+    <title>FraudGuard® - Enterprise Fraud Prevention | Complete Solution</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --accent-orange: #ff6b00;
+            --dark-blue: #003d82;
+            --light-blue: #e6f2ff;
+            --gray-dark: #2c3e50;
+            --gray-medium: #6c757d;
+            --gray-light: #f8f9fa;
+            --white: #ffffff;
+            --success-green: #28a745;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-lg);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent-orange);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #e65f00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-orange);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary-blue);
+        }
+
+        .btn-white:hover {
+            background: var(--light-blue);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--white);
+            padding: 3rem 2rem;
+            box-shadow: var(--shadow);
+            margin-top: -3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            color: var(--accent-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: var(--gray-medium);
+            font-weight: 500;
+        }
+
+        /* Common Section Styles */
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.75rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.15rem;
+            color: var(--gray-medium);
+        }
+
+        /* Features */
+        .features {
+            background: var(--gray-light);
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-top: 4px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-top-color: var(--accent-orange);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* Blog Section */
+        .blog {
+            background: var(--gray-light);
+        }
+
+        .blog-search {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .blog-search input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 2px solid var(--gray-light);
+            border-radius: 50px;
+            font-size: 1rem;
+            background: var(--white);
+        }
+
+        .blog-search input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .blog-search i {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-medium);
+        }
+
+        .blog-categories {
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: 25px;
+            color: var(--gray-dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .blog-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .blog-content {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-category-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--gray-medium);
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .blog-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.35rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: var(--gray-medium);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .read-more {
+            color: var(--accent-orange);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .read-more:hover {
+            gap: 0.75rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-medium);
+            font-size: 1.25rem;
+            display: none;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: var(--white);
+        }
+
+        .pricing-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-orange);
+            transform: scale(1.05);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            color: var(--gray-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price span {
+            font-size: 1.25rem;
+            color: var(--gray-medium);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .pricing-features i {
+            color: var(--success-green);
+            margin-right: 0.5rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .testimonials .section-header h2,
+        .testimonials .section-header p {
+            color: var(--white);
+        }
+
+        .testimonials-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .testimonial-stars {
+            color: var(--accent-orange);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #e65f00 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-dark);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-orange);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            padding: 2rem;
+            z-index: 999;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-menu a {
+            color: var(--gray-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .features-grid,
+            .pricing-grid,
+            .testimonials-grid,
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu,
+            .header-buttons {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding: 4rem 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid,
+            .pricing-grid,
+            .testimonials-grid,
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>FraudGuard®</span>
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a data-scroll="features">Solutions</a></li>
+                    <li><a data-scroll="pricing">Pricing</a></li>
+                    <li><a data-scroll="testimonials">Clients</a></li>
+                    <li><a data-scroll="blog">Blog</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-buttons">
+                <a href="/fraudguard.html" class="btn btn-outline">Login</a>
+                <a href="#cta" class="btn btn-primary">Request Demo</a>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a data-scroll="features">Solutions</a></li>
+            <li><a data-scroll="pricing">Pricing</a></li>
+            <li><a data-scroll="testimonials">Clients</a></li>
+            <li><a data-scroll="blog">Blog</a></li>
+        </ul>
+        <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+            <a href="/fraudguard.html" class="btn btn-outline">Login</a>
+            <a href="#cta" class="btn btn-primary">Request Demo</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Stop <span>Fraud</span> Before It Happens</h1>
+                <p>Protect your business with AI-powered fraud detection that analyzes transactions in real-time with 99.8% accuracy and sub-50ms response time.</p>
+                <div class="hero-buttons">
+                    <a href="#cta" class="btn btn-primary btn-large">Request Demo</a>
+                    <a href="#features" class="btn btn-white btn-large">View Solutions</a>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 500px;">
+                    <defs>
+                        <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+                            <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M300 50 L450 100 L450 250 Q450 350 300 450 Q150 350 150 250 L150 100 Z"
+                          fill="url(#shieldGrad)" stroke="#ffffff" stroke-width="4"/>
+                    <circle cx="300" cy="220" r="50" fill="#ff6b00" opacity="0.9"/>
+                    <rect x="255" y="200" width="90" height="120" rx="12" fill="#ff6b00" opacity="0.9"/>
+                    <circle cx="300" cy="250" r="18" fill="#ffffff"/>
+                    <rect x="294" y="250" width="12" height="40" fill="#ffffff"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>99.8%</h3>
+                <p>Detection Accuracy</p>
+            </div>
+            <div class="stat-item">
+                <h3>$2.5B+</h3>
+                <p>Fraud Prevented</p>
+            </div>
+            <div class="stat-item">
+                <h3>&lt;50ms</h3>
+                <p>Response Time</p>
+            </div>
+            <div class="stat-item">
+                <h3>10M+</h3>
+                <p>Daily Transactions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section features" id="features">
+        <div class="section-header">
+            <h2>Complete Fraud Prevention Solutions</h2>
+            <p>Enterprise-grade protection powered by advanced AI</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Real-Time Verification</h3>
+                <p>Instantly analyze every transaction with sub-50ms latency. Process millions of requests per second.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                <h3>Advanced Machine Learning</h3>
+                <p>Self-learning AI models continuously adapt to emerging fraud patterns with 99.8% accuracy.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-user-shield"></i></div>
+                <h3>Behavioral Analysis</h3>
+                <p>Track user behavior patterns and device fingerprints to identify suspicious activities.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Detailed Analytics</h3>
+                <p>Access comprehensive dashboards with real-time insights and predictive analytics.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-scale-balanced"></i></div>
+                <h3>Regulatory Compliance</h3>
+                <p>Stay compliant with PCI DSS, GDPR, SOC 2 and industry regulations.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                <h3>24/7 Expert Support</h3>
+                <p>Dedicated fraud prevention specialists available around the clock.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section pricing" id="pricing">
+        <div class="section-header">
+            <h2>Choose Your Protection Plan</h2>
+            <p>Flexible pricing for businesses of all sizes</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Basic</h3>
+                <div class="pricing-price">$299<span>/month</span></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Up to 10,000 transactions/month</li>
+                    <li><i class="fas fa-check"></i> Real-time fraud detection</li>
+                    <li><i class="fas fa-check"></i> Basic analytics dashboard</li>
+                    <li><i class="fas fa-check"></i> Email support</li>
+                    <li><i class="fas fa-check"></i> API access</li>
+                </ul>
+                <a href="#cta" class="btn btn-outline btn-large">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Most Popular</div>
+                <h3>Professional</h3>
+                <div class="pricing-price">$799<span>/month</span></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Up to 100,000 transactions/month</li>
+                    <li><i class="fas fa-check"></i> Advanced ML models</li>
+                    <li><i class="fas fa-check"></i> Full analytics suite</li>
+                    <li><i class="fas fa-check"></i> Priority support 24/7</li>
+                    <li><i class="fas fa-check"></i> Custom rules engine</li>
+                    <li><i class="fas fa-check"></i> Dedicated account manager</li>
+                </ul>
+                <a href="#cta" class="btn btn-primary btn-large">Get Started</a>
+            </div>
+
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="pricing-price">Custom</div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Unlimited transactions</li>
+                    <li><i class="fas fa-check"></i> Custom ML model training</li>
+                    <li><i class="fas fa-check"></i> White-label dashboard</li>
+                    <li><i class="fas fa-check"></i> 24/7 dedicated support team</li>
+                    <li><i class="fas fa-check"></i> On-premise deployment</li>
+                    <li><i class="fas fa-check"></i> SLA guarantees</li>
+                </ul>
+                <a href="#cta" class="btn btn-outline btn-large">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials" id="testimonials">
+        <div class="section-header">
+            <h2>Trusted by Industry Leaders</h2>
+            <p>Join thousands of companies protecting their business</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"FraudGuard® reduced our fraud losses by 94% in the first quarter. The ML models are incredibly accurate."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SM</div>
+                    <div>
+                        <h4>Sarah Mitchell</h4>
+                        <p>CFO, FinTech Solutions Inc.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Integration was seamless. We're now processing 2M+ transactions daily with complete confidence."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JC</div>
+                    <div>
+                        <h4>James Chen</h4>
+                        <p>CTO, Global Payments Corp.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"The real-time analytics dashboard is a game-changer. ROI was positive within 60 days."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MR</div>
+                    <div>
+                        <h4>Maria Rodriguez</h4>
+                        <p>Risk Manager, E-Commerce Plus</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section with FULL CONTENT -->
+    <section class="section blog" id="blog">
+        <div class="section-header">
+            <h2>Insights & Resources</h2>
+            <p>Stay ahead of fraud with expert insights and industry news</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="blog-search">
+            <input type="text" id="blogSearch" placeholder="Search articles...">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="blog-categories">
+            <button class="category-btn active" data-category="all">All Articles</button>
+            <button class="category-btn" data-category="security">Security Tips</button>
+            <button class="category-btn" data-category="news">Industry News</button>
+            <button class="category-btn" data-category="case-studies">Case Studies</button>
+        </div>
+
+        <!-- Blog Grid -->
+        <div class="blog-grid" id="blogGrid">
+            <!-- SECURITY TIPS ARTICLES (5) -->
+            <article class="blog-card" data-category="security">
+                <div class="blog-image"><i class="fas fa-lock"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Security Tips</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 18, 2024</span>
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                    </div>
+                    <h3>10 Ways to Protect Your Business from Online Fraud</h3>
+                    <p class="blog-excerpt">Discover essential strategies to safeguard your business from digital fraud. Learn about two-factor authentication, employee training, secure payment gateways, and real-time monitoring systems that can prevent costly security breaches.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="security">
+                <div class="blog-image"><i class="fas fa-key"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Security Tips</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 15, 2024</span>
+                        <span><i class="far fa-clock"></i> 6 min read</span>
+                    </div>
+                    <h3>Password Security Best Practices for 2024</h3>
+                    <p class="blog-excerpt">Master the art of password management with our comprehensive guide. Learn why 12+ character passwords with special characters are crucial, how password managers can save time while boosting security, and why regular updates matter.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="security">
+                <div class="blog-image"><i class="fas fa-shield-virus"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Security Tips</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 12, 2024</span>
+                        <span><i class="far fa-clock"></i> 7 min read</span>
+                    </div>
+                    <h3>How to Identify Phishing Attempts</h3>
+                    <p class="blog-excerpt">Phishing attacks are becoming increasingly sophisticated. Learn to recognize red flags like suspicious sender addresses, urgent language, unexpected attachments, and fake login pages that cybercriminals use to steal credentials.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="security">
+                <div class="blog-image"><i class="fas fa-mobile-screen-button"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Security Tips</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 10, 2024</span>
+                        <span><i class="far fa-clock"></i> 5 min read</span>
+                    </div>
+                    <h3>Multi-Factor Authentication: Why It's Essential</h3>
+                    <p class="blog-excerpt">Multi-factor authentication (MFA) adds a critical layer of security beyond passwords. Explore different MFA methods including SMS codes, authenticator apps, biometrics, and hardware tokens to protect sensitive business data.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="security">
+                <div class="blog-image"><i class="fas fa-credit-card"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Security Tips</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 8, 2024</span>
+                        <span><i class="far fa-clock"></i> 9 min read</span>
+                    </div>
+                    <h3>Secure Payment Processing Guidelines</h3>
+                    <p class="blog-excerpt">Implement PCI DSS compliant payment processing with our expert guidelines. Learn about tokenization, encryption standards, secure checkout flows, and compliance requirements that protect customer payment data and build trust.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <!-- INDUSTRY NEWS ARTICLES (5) -->
+            <article class="blog-card" data-category="news">
+                <div class="blog-image"><i class="fas fa-shopping-cart"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Industry News</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 17, 2024</span>
+                        <span><i class="far fa-clock"></i> 10 min read</span>
+                    </div>
+                    <h3>Latest Fraud Trends in E-commerce</h3>
+                    <p class="blog-excerpt">E-commerce fraud reached $48 billion in 2024. Discover emerging threats including account takeover attacks, friendly fraud chargebacks, promo abuse, and synthetic identity fraud that online retailers must defend against.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="news">
+                <div class="blog-image"><i class="fas fa-gavel"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Industry News</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 14, 2024</span>
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                    </div>
+                    <h3>Regulatory Updates in Financial Security</h3>
+                    <p class="blog-excerpt">New regulations are reshaping financial security. Stay informed about updated PCI DSS 4.0 requirements, GDPR enforcement changes, open banking security standards, and emerging cryptocurrency compliance guidelines.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="news">
+                <div class="blog-image"><i class="fas fa-robot"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Industry News</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 11, 2024</span>
+                        <span><i class="far fa-clock"></i> 11 min read</span>
+                    </div>
+                    <h3>New Technologies in Fraud Detection</h3>
+                    <p class="blog-excerpt">Artificial intelligence and machine learning are revolutionizing fraud detection. Explore cutting-edge technologies like behavioral biometrics, graph analytics, deep learning models, and real-time risk scoring systems.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="news">
+                <div class="blog-image"><i class="fas fa-chart-line"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Industry News</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 9, 2024</span>
+                        <span><i class="far fa-clock"></i> 7 min read</span>
+                    </div>
+                    <h3>Industry Statistics: Fraud Losses in 2024</h3>
+                    <p class="blog-excerpt">Comprehensive analysis of fraud losses across industries. Payment fraud costs reached $32 billion, identity theft affected 15 million victims, and cybercrime damages exceeded $10 trillion globally in 2024.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="news">
+                <div class="blog-image"><i class="fas fa-calendar-days"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Industry News</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 7, 2024</span>
+                        <span><i class="far fa-clock"></i> 6 min read</span>
+                    </div>
+                    <h3>Upcoming Security Conferences and Events</h3>
+                    <p class="blog-excerpt">Don't miss major cybersecurity and fraud prevention events in 2025. RSA Conference, Black Hat USA, Money20/20, and FraudCon bring together industry leaders to share insights on emerging threats and solutions.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <!-- CASE STUDIES ARTICLES (5) -->
+            <article class="blog-card" data-category="case-studies">
+                <div class="blog-image"><i class="fas fa-chart-bar"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Case Studies</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 16, 2024</span>
+                        <span><i class="far fa-clock"></i> 12 min read</span>
+                    </div>
+                    <h3>How Company X Reduced Chargebacks by 75%</h3>
+                    <p class="blog-excerpt">Leading payment processor implemented FraudGuard® and achieved remarkable results. Case study reveals how real-time transaction monitoring, ML-powered risk scoring, and automated fraud rules reduced chargebacks from 2.1% to 0.5%.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="case-studies">
+                <div class="blog-image"><i class="fas fa-building-columns"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Case Studies</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 13, 2024</span>
+                        <span><i class="far fa-clock"></i> 10 min read</span>
+                    </div>
+                    <h3>Financial Institution Y: Preventing $2M in Fraud</h3>
+                    <p class="blog-excerpt">Regional bank prevented $2 million in fraud losses within 6 months. Deep dive into their multi-layered approach combining behavioral analytics, device fingerprinting, and AI-powered anomaly detection systems.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="case-studies">
+                <div class="blog-image"><i class="fas fa-store"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Case Studies</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 6, 2024</span>
+                        <span><i class="far fa-clock"></i> 9 min read</span>
+                    </div>
+                    <h3>E-commerce Success: 90% Fraud Detection Accuracy</h3>
+                    <p class="blog-excerpt">Online retailer achieved 90% fraud detection accuracy while reducing false positives by 60%. Learn how custom ML models trained on historical data and real-time velocity checks transformed their fraud prevention strategy.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="case-studies">
+                <div class="blog-image"><i class="fas fa-hospital"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Case Studies</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 4, 2024</span>
+                        <span><i class="far fa-clock"></i> 11 min read</span>
+                    </div>
+                    <h3>Healthcare Provider Z: Securing Patient Data</h3>
+                    <p class="blog-excerpt">Healthcare provider protected 500,000+ patient records while maintaining HIPAA compliance. Comprehensive case study covering access controls, encryption implementation, audit logging, and incident response protocols.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="case-studies">
+                <div class="blog-image"><i class="fas fa-cart-shopping"></i></div>
+                <div class="blog-content">
+                    <span class="blog-category-tag">Case Studies</span>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Dec 2, 2024</span>
+                        <span><i class="far fa-clock"></i> 13 min read</span>
+                    </div>
+                    <h3>Retail Chain: Implementing Real-time Fraud Monitoring</h3>
+                    <p class="blog-excerpt">National retail chain deployed real-time fraud monitoring across 500 locations. Detailed implementation guide including system architecture, integration challenges, staff training, and ROI analysis showing $8M saved annually.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        </div>
+
+        <!-- No Results Message -->
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+            <p>No articles found matching your search.</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section" id="cta">
+        <div class="cta-content">
+            <h2>Ready to Stop Fraud?</h2>
+            <p>Get started with a free 30-day trial. No credit card required.</p>
+            <a href="/fraudguard.html" class="btn btn-white btn-large">Start Free Trial</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3><i class="fas fa-shield-halved"></i> FraudGuard®</h3>
+                <p>Enterprise-grade fraud prevention powered by AI. Protecting businesses worldwide since 2015.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="#">Payment Fraud</a></li>
+                    <li><a href="#">Account Takeover</a></li>
+                    <li><a href="#">Identity Verification</a></li>
+                    <li><a href="#">Bot Detection</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 FraudGuard®. All rights reserved. | Enterprise Fraud Prevention Solutions</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('[data-scroll]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-scroll');
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    mobileMenu.classList.remove('active');
+                    mobileMenuToggle.querySelector('i').classList.add('fa-bars');
+                    mobileMenuToggle.querySelector('i').classList.remove('fa-times');
+                }
+            });
+        });
+
+        // Blog category filter
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const blogCards = document.querySelectorAll('.blog-card');
+        const noResults = document.getElementById('noResults');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Clear search
+                document.getElementById('blogSearch').value = '';
+
+                // Filter cards
+                let visibleCount = 0;
+                blogCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (category === 'all' || cardCategory === category) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Show/hide no results
+                if (visibleCount === 0) {
+                    noResults.classList.add('visible');
+                } else {
+                    noResults.classList.remove('visible');
+                }
+            });
+        });
+
+        // Blog search
+        const blogSearch = document.getElementById('blogSearch');
+
+        blogSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            blogCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
+                const category = card.querySelector('.blog-category-tag').textContent.toLowerCase();
+
+                if (searchTerm === '' ||
+                    title.includes(searchTerm) ||
+                    excerpt.includes(searchTerm) ||
+                    category.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/hide no results
+            if (searchTerm !== '' && visibleCount === 0) {
+                noResults.classList.add('visible');
+            } else {
+                noResults.classList.remove('visible');
+            }
+
+            // Reset category filter when searching
+            if (searchTerm !== '') {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                categoryBtns[0].classList.add('active');
+            }
+        });
+
+        // Smooth scroll for regular links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '#cta') return;
+
+                e.preventDefault();
+                const target = href === '#' ? document.body : document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

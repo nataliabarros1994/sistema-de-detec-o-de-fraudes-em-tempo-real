@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudGuard® Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #2c6aa0;
+            --accent: #e63946;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .stats-card {
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stats-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .table-wrapper {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .score-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .score-low {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .score-medium {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .score-high {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-blocked {
+            background-color: var(--danger);
+        }
+
+        .badge-active {
+            background-color: var(--success);
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .refresh-btn.spinning {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .ip-address {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .last-updated {
+            color: #6c757d;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .section-title {
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .redis-status {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .redis-connected {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .redis-fallback {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand">
+                <i class="fas fa-shield-alt me-2"></i>
+                FraudGuard® Admin Dashboard
+            </span>
+            <div class="text-white">
+                <span class="last-updated" id="lastUpdated">Loading...</span>
+                <button class="btn btn-sm btn-outline-light ms-3" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stats-card card">
+                    <div class="card-body text-center">
+                        <div class="stats-number text-primary" id="totalIPs">-</div>
+                        <div class="stats-label">Total IPs Tracked</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card card">
+                    <div class="card-body text-center">
+                        <div class="stats-number text-success" id="activeCount">-</div>
+                        <div class="stats-label">Active IPs</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card card">
+                    <div class="card-body text-center">
+                        <div class="stats-number text-danger" id="blockedCount">-</div>
+                        <div class="stats-label">Blocked IPs</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card card">
+                    <div class="card-body text-center">
+                        <div class="stats-number text-warning" id="highRiskCount">-</div>
+                        <div class="stats-label">High Risk IPs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Info -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="table-wrapper">
+                    <h5 class="mb-3"><i class="fas fa-info-circle me-2"></i>System Information</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p class="mb-2">
+                                <strong>Redis Status:</strong>
+                                <span class="redis-status" id="redisStatus">Loading...</span>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-2">
+                                <strong>Block Threshold:</strong>
+                                <span id="blockThreshold">-</span>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-2">
+                                <strong>Average Score:</strong>
+                                <span id="avgScore">-</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IP Table -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-wrapper">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Active IP Addresses</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary" onclick="filterBlocked()">
+                                <i class="fas fa-filter me-1"></i>Show Blocked Only
+                            </button>
+                            <button class="btn btn-sm btn-outline-success ms-2" onclick="filterAll()">
+                                <i class="fas fa-list me-1"></i>Show All
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="ipTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>IP Address</th>
+                                    <th>Fraud Score</th>
+                                    <th>Status</th>
+                                    <th>Block Details</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted">
+                                        <i class="fas fa-spinner fa-spin me-2"></i>Loading data...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refresh Button -->
+    <button class="refresh-btn" id="refreshBtn" onclick="refreshData()" title="Refresh Data">
+        <i class="fas fa-sync-alt fa-lg"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Get admin token from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const adminToken = urlParams.get('token');
+
+        if (!adminToken) {
+            alert('Admin token required. Redirecting...');
+            window.location.href = '/';
+        }
+
+        let allData = [];
+        let currentFilter = 'all';
+
+        // Fetch fraud statistics
+        async function fetchStats() {
+            try {
+                const response = await fetch(`/admin/fraud-stats?token=${adminToken}`);
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        alert('Invalid admin token');
+                        window.location.href = '/';
+                        return;
+                    }
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+                showError('Failed to fetch statistics');
+                return null;
+            }
+        }
+
+        // Update dashboard
+        async function updateDashboard() {
+            const data = await fetchStats();
+
+            if (!data || !data.success) {
+                return;
+            }
+
+            // Update stats cards
+            document.getElementById('totalIPs').textContent = data.stats.totalIPs || 0;
+            document.getElementById('activeCount').textContent = data.stats.activeCount || 0;
+            document.getElementById('blockedCount').textContent = data.stats.blockedCount || 0;
+            document.getElementById('highRiskCount').textContent = data.stats.highRiskCount || 0;
+            document.getElementById('blockThreshold').textContent = data.stats.threshold || 100;
+            document.getElementById('avgScore').textContent = (data.stats.averageScore || 0).toFixed(1);
+
+            // Update Redis status
+            const redisStatus = document.getElementById('redisStatus');
+            const redis = data.stats.redisStatus;
+
+            if (redis && redis.connected && !redis.fallbackMode) {
+                redisStatus.textContent = 'Connected (Redis)';
+                redisStatus.className = 'redis-status redis-connected';
+            } else {
+                redisStatus.textContent = 'In-Memory Mode';
+                redisStatus.className = 'redis-status redis-fallback';
+            }
+
+            // Store all data
+            allData = data.activeIPs || [];
+
+            // Update table
+            updateTable();
+
+            // Update timestamp
+            document.getElementById('lastUpdated').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+        }
+
+        // Update table based on filter
+        function updateTable() {
+            let filteredData = allData;
+
+            if (currentFilter === 'blocked') {
+                filteredData = allData.filter(item => item.blocked);
+            }
+
+            const tbody = document.getElementById('tableBody');
+
+            if (filteredData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            <i class="fas fa-inbox me-2"></i>No IP addresses found
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filteredData.map(item => {
+                const scoreClass = item.score < 50 ? 'score-low' :
+                                 item.score < 75 ? 'score-medium' : 'score-high';
+
+                const statusBadge = item.blocked ?
+                    '<span class="badge badge-blocked">Blocked</span>' :
+                    '<span class="badge badge-active">Active</span>';
+
+                const blockDetails = item.blocked && item.blockDetails ?
+                    `
+                    <small class="text-muted">
+                        ${item.blockDetails.reason}<br>
+                        Expires: ${item.blockDetails.expiresIn || 'N/A'}
+                    </small>
+                    ` : '-';
+
+                const actions = item.blocked ?
+                    `<button class="btn btn-sm btn-success" onclick="unblockIP('${item.ip}')">
+                        <i class="fas fa-unlock me-1"></i>Unblock
+                    </button>` :
+                    `<button class="btn btn-sm btn-warning" onclick="resetScore('${item.ip}')">
+                        <i class="fas fa-redo me-1"></i>Reset
+                    </button>`;
+
+                return `
+                    <tr>
+                        <td><span class="ip-address">${item.ip}</span></td>
+                        <td><span class="score-badge ${scoreClass}">${item.score}</span></td>
+                        <td>${statusBadge}</td>
+                        <td>${blockDetails}</td>
+                        <td>${actions}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Unblock IP
+        async function unblockIP(ip) {
+            if (!confirm(`Are you sure you want to unblock ${ip}?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/admin/unblock/${ip}?token=${adminToken}`, {
+                    method: 'POST'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess(`IP ${ip} has been unblocked`);
+                    await refreshData();
+                } else {
+                    showError(data.message || 'Failed to unblock IP');
+                }
+            } catch (error) {
+                console.error('Error unblocking IP:', error);
+                showError('Failed to unblock IP');
+            }
+        }
+
+        // Reset score
+        async function resetScore(ip) {
+            if (!confirm(`Are you sure you want to reset the fraud score for ${ip}?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/admin/reset-score/${ip}?token=${adminToken}`, {
+                    method: 'POST'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess(`Fraud score reset for IP ${ip}`);
+                    await refreshData();
+                } else {
+                    showError(data.message || 'Failed to reset score');
+                }
+            } catch (error) {
+                console.error('Error resetting score:', error);
+                showError('Failed to reset score');
+            }
+        }
+
+        // Filter functions
+        function filterBlocked() {
+            currentFilter = 'blocked';
+            updateTable();
+        }
+
+        function filterAll() {
+            currentFilter = 'all';
+            updateTable();
+        }
+
+        // Refresh data
+        async function refreshData() {
+            const btn = document.getElementById('refreshBtn');
+            btn.classList.add('spinning');
+
+            await updateDashboard();
+
+            setTimeout(() => {
+                btn.classList.remove('spinning');
+            }, 500);
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            // Simple alert for now - can be replaced with toast notification
+            alert('✅ ' + message);
+        }
+
+        // Show error message
+        function showError(message) {
+            alert('❌ ' + message);
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '/';
+            }
+        }
+
+        // Auto-refresh every 10 seconds
+        setInterval(async () => {
+            await updateDashboard();
+        }, 10000);
+
+        // Initial load
+        updateDashboard();
+    </script>
+</body>
+</html>

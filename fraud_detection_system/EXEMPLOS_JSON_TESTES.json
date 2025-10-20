@@ -1,0 +1,365 @@
+{
+  "exemplos_de_teste": {
+
+    "TESTE_1_FRAUDE_ALTA": {
+      "descricao": "Transação altamente suspeita - deve detectar FRAUDE com ~99% de probabilidade",
+      "json": {
+        "transaction_id": "fraude_001",
+        "user_id": "usuario_novo_123",
+        "amount": 5000.00,
+        "merchant": "Loja Eletrônicos Importados",
+        "category": "electronics",
+        "location": "Localização Desconhecida, XX",
+        "device": "device_nunca_visto_999",
+        "timestamp": "2025-10-15T20:00:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": true,
+        "fraud_probability": "~0.99",
+        "risk_level": "high"
+      }
+    },
+
+    "TESTE_2_LEGITIMA": {
+      "descricao": "Transação normal de supermercado - deve APROVAR",
+      "json": {
+        "transaction_id": "legitima_001",
+        "user_id": "usuario_conhecido_456",
+        "amount": 85.50,
+        "merchant": "Supermercado Zona Sul",
+        "category": "food",
+        "location": "São Paulo, SP",
+        "device": "device_mobile_conhecido_123",
+        "timestamp": "2025-10-15T10:30:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": false,
+        "fraud_probability": "~0.10-0.30",
+        "risk_level": "low"
+      }
+    },
+
+    "TESTE_3_RISCO_MEDIO": {
+      "descricao": "Compra com alguns sinais de alerta - RISCO MÉDIO",
+      "json": {
+        "transaction_id": "medio_001",
+        "user_id": "usuario_regular_789",
+        "amount": 1200.00,
+        "merchant": "Loja de Roupas Online",
+        "category": "fashion",
+        "location": "Rio de Janeiro, RJ",
+        "device": "device_web_desktop",
+        "timestamp": "2025-10-15T22:45:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": "pode variar",
+        "fraud_probability": "~0.40-0.70",
+        "risk_level": "medium"
+      }
+    },
+
+    "TESTE_4_COMPRA_INTERNACIONAL": {
+      "descricao": "Compra internacional suspeita - FRAUDE ALTA",
+      "json": {
+        "transaction_id": "internacional_001",
+        "user_id": "user_brasil_123",
+        "amount": 15000.00,
+        "merchant": "Online Store International",
+        "category": "electronics",
+        "location": "Exterior, País Desconhecido",
+        "device": "device_novo_estranho",
+        "timestamp": "2025-10-15T03:00:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": true,
+        "fraud_probability": "~0.95-0.99",
+        "risk_level": "high",
+        "fatores_risco": [
+          "Horário incomum (madrugada)",
+          "Valor muito alto",
+          "Localização internacional",
+          "Dispositivo desconhecido"
+        ]
+      }
+    },
+
+    "TESTE_5_VIAGEM_LEGITIMA": {
+      "descricao": "Compra de passagem aérea - LEGÍTIMA",
+      "json": {
+        "transaction_id": "viagem_001",
+        "user_id": "user_viajante_456",
+        "amount": 350.00,
+        "merchant": "Companhia Aérea GOL",
+        "category": "travel",
+        "location": "São Paulo, SP",
+        "device": "device_mobile_conhecido",
+        "timestamp": "2025-10-15T14:00:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": false,
+        "fraud_probability": "~0.15-0.35",
+        "risk_level": "low ou medium"
+      }
+    },
+
+    "TESTE_6_TESTE_CARTAO": {
+      "descricao": "Teste de cartão roubado - SUSPEITA",
+      "json": {
+        "transaction_id": "teste_cartao_001",
+        "user_id": "user_vitima_999",
+        "amount": 1.00,
+        "merchant": "Teste Online Estranho",
+        "category": "other",
+        "location": "Online, Anonimo",
+        "device": "device_web_tor_browser",
+        "timestamp": "2025-10-15T23:59:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": true,
+        "fraud_probability": "~0.80-0.95",
+        "risk_level": "high",
+        "fatores_risco": [
+          "Valor muito baixo (teste)",
+          "Horário suspeito (quase meia-noite)",
+          "Dispositivo anônimo (TOR)",
+          "Merchant suspeito"
+        ]
+      }
+    },
+
+    "TESTE_7_SAUDE_EMERGENCIAL": {
+      "descricao": "Compra emergencial em farmácia - RISCO MÉDIO",
+      "json": {
+        "transaction_id": "saude_001",
+        "user_id": "user_regular_789",
+        "amount": 800.00,
+        "merchant": "Farmácia 24h",
+        "category": "health",
+        "location": "São Paulo, SP",
+        "device": "device_mobile",
+        "timestamp": "2025-10-15T02:30:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": false,
+        "fraud_probability": "~0.30-0.50",
+        "risk_level": "low ou medium",
+        "observacao": "Horário incomum mas categoria health justifica"
+      }
+    },
+
+    "TESTE_8_MULTIPLAS_COMPRAS": {
+      "descricao": "Múltiplas compras pequenas rápidas - SUSPEITA",
+      "json": {
+        "transaction_id": "multipla_001",
+        "user_id": "user_comportamento_estranho",
+        "amount": 25.00,
+        "merchant": "Loja Online 1",
+        "category": "other",
+        "location": "Vários Locais",
+        "device": "device_varios",
+        "timestamp": "2025-10-15T23:00:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": "pode variar",
+        "fraud_probability": "~0.50-0.75",
+        "risk_level": "medium ou high"
+      }
+    },
+
+    "TESTE_9_COMPRA_RESTAURANTE": {
+      "descricao": "Jantar em restaurante - LEGÍTIMA",
+      "json": {
+        "transaction_id": "restaurante_001",
+        "user_id": "user_regular_123",
+        "amount": 180.00,
+        "merchant": "Restaurante Fogo de Chão",
+        "category": "food",
+        "location": "São Paulo, SP",
+        "device": "device_mobile_conhecido",
+        "timestamp": "2025-10-15T20:30:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": false,
+        "fraud_probability": "~0.10-0.25",
+        "risk_level": "low"
+      }
+    },
+
+    "TESTE_10_STREAMING": {
+      "descricao": "Assinatura de streaming - LEGÍTIMA",
+      "json": {
+        "transaction_id": "streaming_001",
+        "user_id": "user_assinante_456",
+        "amount": 39.90,
+        "merchant": "Netflix",
+        "category": "entertainment",
+        "location": "São Paulo, SP",
+        "device": "device_smart_tv",
+        "timestamp": "2025-10-15T18:00:00"
+      },
+      "resultado_esperado": {
+        "is_fraud": false,
+        "fraud_probability": "~0.05-0.15",
+        "risk_level": "low"
+      }
+    }
+  },
+
+  "exemplo_batch": {
+    "descricao": "Predição em lote - 5 transações de uma vez",
+    "json": {
+      "transactions": [
+        {
+          "transaction_id": "batch_001",
+          "user_id": "user_001",
+          "amount": 50.00,
+          "merchant": "Padaria",
+          "category": "food",
+          "location": "São Paulo, SP",
+          "device": "device_mobile"
+        },
+        {
+          "transaction_id": "batch_002",
+          "user_id": "user_002",
+          "amount": 8000.00,
+          "merchant": "Joalheria Suspeita",
+          "category": "other",
+          "location": "Localização Desconhecida",
+          "device": "device_nunca_visto"
+        },
+        {
+          "transaction_id": "batch_003",
+          "user_id": "user_003",
+          "amount": 150.00,
+          "merchant": "Restaurante",
+          "category": "food",
+          "location": "Rio de Janeiro, RJ",
+          "device": "device_web"
+        },
+        {
+          "transaction_id": "batch_004",
+          "user_id": "user_004",
+          "amount": 3500.00,
+          "merchant": "Loja Online Internacional",
+          "category": "electronics",
+          "location": "Exterior",
+          "device": "device_novo"
+        },
+        {
+          "transaction_id": "batch_005",
+          "user_id": "user_005",
+          "amount": 45.90,
+          "merchant": "Supermercado",
+          "category": "food",
+          "location": "São Paulo, SP",
+          "device": "device_mobile_conhecido"
+        }
+      ]
+    },
+    "resultado_esperado": {
+      "total_transactions": 5,
+      "fraud_detected": 2,
+      "observacao": "Deve detectar fraude em batch_002 e batch_004"
+    }
+  },
+
+  "campos_obrigatorios": {
+    "transaction_id": "ID único da transação (string)",
+    "user_id": "ID do usuário (string)",
+    "amount": "Valor em reais (number > 0)",
+    "merchant": "Nome do estabelecimento (string)",
+    "category": "Categoria: electronics, fashion, food, travel, services, entertainment, health, other",
+    "location": "Localização da transação (string)",
+    "device": "Identificador do dispositivo (string)"
+  },
+
+  "campos_opcionais": {
+    "timestamp": "Data/hora da transação (ISO 8601 format)",
+    "ip_address": "Endereço IP da transação",
+    "user_agent": "User agent do navegador/app"
+  },
+
+  "categorias_validas": [
+    "electronics",
+    "fashion",
+    "food",
+    "travel",
+    "services",
+    "entertainment",
+    "health",
+    "other"
+  ],
+
+  "dicas_de_uso": {
+    "para_testar_fraude": [
+      "Use valores altos (> R$ 3000)",
+      "Use localizações incomuns",
+      "Use dispositivos 'desconhecidos' ou 'nunca_visto'",
+      "Use horários da madrugada (02:00-05:00)",
+      "Use categoria 'electronics' ou 'other'"
+    ],
+    "para_testar_legitima": [
+      "Use valores normais (R$ 50-500)",
+      "Use localizações comuns (São Paulo, Rio de Janeiro)",
+      "Use dispositivos 'conhecidos' ou 'mobile_conhecido'",
+      "Use horários comerciais (09:00-22:00)",
+      "Use categoria 'food' ou 'entertainment'"
+    ],
+    "para_testar_cache": [
+      "Execute a mesma transação duas vezes",
+      "Observe o 'processing_time_ms' cair drasticamente",
+      "Segunda execução deve ser ~10x mais rápida"
+    ]
+  },
+
+  "exemplos_minimos": {
+    "minimo_valido": {
+      "transaction_id": "min_001",
+      "user_id": "user_123",
+      "amount": 100.00,
+      "merchant": "Loja ABC",
+      "category": "food",
+      "location": "São Paulo, SP",
+      "device": "device_001"
+    }
+  },
+
+  "exemplos_de_erro": {
+    "erro_amount_negativo": {
+      "descricao": "ERRO: Valor negativo não é permitido",
+      "json_invalido": {
+        "transaction_id": "erro_001",
+        "user_id": "user_123",
+        "amount": -50.00,
+        "merchant": "Loja",
+        "category": "food",
+        "location": "SP",
+        "device": "device_001"
+      },
+      "erro_esperado": "O valor deve ser maior que zero"
+    },
+    "erro_categoria_invalida": {
+      "descricao": "ERRO: Categoria inválida",
+      "json_invalido": {
+        "transaction_id": "erro_002",
+        "user_id": "user_123",
+        "amount": 100.00,
+        "merchant": "Loja",
+        "category": "categoria_inexistente",
+        "location": "SP",
+        "device": "device_001"
+      },
+      "erro_esperado": "Categoria deve ser uma das válidas"
+    }
+  },
+
+  "instrucoes_de_uso": {
+    "passo_1": "Copie o JSON do teste desejado (sem as aspas externas)",
+    "passo_2": "Acesse http://localhost:8000/docs",
+    "passo_3": "Clique em POST /predict",
+    "passo_4": "Clique em 'Try it out'",
+    "passo_5": "Cole o JSON no campo 'Request body'",
+    "passo_6": "Clique em 'Execute'",
+    "passo_7": "Veja a resposta abaixo com a predição"
+  }
+}

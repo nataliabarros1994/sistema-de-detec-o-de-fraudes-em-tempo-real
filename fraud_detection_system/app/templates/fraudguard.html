@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudGuard® Risk Solutions - Sistemas de Prevenção de Fraudes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #2c6aa0;
+            --accent: #e63946;
+            --light: #f1faee;
+            --dark: #1d3557;
+            --text: #333;
+            --gray: #666;
+            --light-gray: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .hero-text {
+            flex: 1;
+            padding-right: 40px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c1121f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Solutions Section */
+        .solutions {
+            background-color: white;
+        }
+        
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        
+        .solution-card {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .solution-content {
+            padding: 30px;
+        }
+        
+        .solution-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .solution-content p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        /* Products Section */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .product-card p {
+            color: var(--gray);
+        }
+        
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .about-text {
+            flex: 1;
+            padding-right: 40px;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .about p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            background-color: white;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .faq-question {
+            background-color: var(--light-gray);
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .faq-question:hover {
+            background-color: #e9ecef;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background-color: white;
+        }
+        
+        .faq-answer.active {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        .faq-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+        
+        .faq-toggle.active {
+            transform: rotate(180deg);
+        }
+        
+        /* Stats Section */
+        .stats {
+            background-color: var(--light);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-item p {
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        /* Results Section */
+        .results {
+            background-color: white;
+        }
+        
+        .results-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .results-stats {
+            flex: 1;
+            padding-right: 40px;
+        }
+        
+        .results-form {
+            flex: 1;
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .result-item {
+            margin-bottom: 30px;
+        }
+        
+        .result-item h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .result-item p {
+            color: var(--gray);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .captcha {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+        
+        .captcha input {
+            margin-right: 10px;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .form-footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content, .about-content, .results-content {
+                flex-direction: column;
+            }
+            
+            .hero-text, .about-text, .results-stats {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            
+            .solutions-grid, .products-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Form Validation Styles */
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: #d32f2f;
+            background-color: #fff5f5;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .captcha.error {
+            border: 1px solid #d32f2f;
+            background-color: #fff5f5;
+        }
+
+        /* Success Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content i {
+            font-size: 3rem;
+            color: #388e3c;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .modal-content p {
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+
+        .modal-content .btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                Fraud<span>Guard</span>®
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#solutions">Soluções</a></li>
+                    <li><a href="#products">Produtos</a></li>
+                    <li><a href="#about">Sobre Nós</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Otimize a Gestão de Riscos na Sua Empresa com Nossos Sistemas de Prevenção de Fraudes</h1>
+                <p>Detecte mais fraudes e maximize as oportunidades de receita com nossas soluções antifraude.</p>
+                <a href="#contact" class="btn">Fale com um Especialista</a>
+            </div>
+            <div class="hero-image">
+                <div class="image-placeholder">
+                    <i class="fas fa-shield-alt" style="font-size: 4rem; margin-bottom: 15px;"></i>
+                    <div>Visualização de Prevenção de Fraudes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="solutions">
+        <div class="container">
+            <div class="section-title">
+                <h2>Aumente a Prevenção de Fraudes</h2>
+                <p>Previna e gerencie fraudes mantendo a conformidade com uma visão completa do risco de identidade.</p>
+            </div>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-content">
+                        <h3>Acelere Transações para Usuários Confiáveis</h3>
+                        <p>Estratégia de autenticação baseada em risco com biometria comportamental, senha de uso único e autenticação push.</p>
+                        <a href="#contact" class="btn">Fale com um Especialista</a>
+                    </div>
+                    <div class="image-placeholder">
+                        <i class="fas fa-bolt" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <div>Autenticação Avançada</div>
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-content">
+                        <h3>Use IA para Minimizar Fraudes</h3>
+                        <p>Decisões de risco informadas com modelos de IA, políticas personalizadas e respostas automatizadas.</p>
+                        <a href="#contact" class="btn">Fale com um Especialista</a>
+                    </div>
+                    <div class="image-placeholder">
+                        <i class="fas fa-robot" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <div>IA Aplicada à Prevenção</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Otimize a Gestão de Riscos com Nossos Produtos</h2>
+                <p>Tecnologia Avançada e Cobertura Global</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <h3>FraudGuard® Risk Solutions</h3>
+                    <p>Dados enriquecidos em tempo real com modelos líderes impulsionados por IA.</p>
+                </div>
+                <div class="product-card">
+                    <h3>FraudGuard® Email Risk Assessment</h3>
+                    <p>Classificação de risco de fraude com inteligência em avaliação de e-mails.</p>
+                </div>
+                <div class="product-card">
+                    <h3>LexisNexis® Identity Fraud Score</h3>
+                    <p>Detecte anomalias com inteligência comportamental avançada.</p>
+                </div>
+                <div class="product-card">
+                    <h3>Digital Identity Network®</h3>
+                    <p>Inteligência global compartilhada para identificar fraudadores em tempo real.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container about-content">
+            <div class="about-text">
+                <h2>Há mais de 50 anos fornecendo soluções inovadoras para análise de risco</h2>
+                <p>Nossa experiência e tecnologia nos tornam líderes em prevenção de fraudes, protegendo empresas globalmente.</p>
+            </div>
+            <div class="about-image">
+                <div class="image-placeholder">
+                    <i class="fas fa-history" style="font-size: 4rem; margin-bottom: 15px;"></i>
+                    <div>História da Empresa</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Perguntas Frequentes</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Como o FraudGuard® ajuda a prevenir fraudes em transações financeiras?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Usamos IA e ML para analisar padrões, identificar transações suspeitas e aplicar políticas personalizadas.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Quais recursos estão disponíveis para verificação de identidade?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Biometria comportamental, autenticação multifator, análise de documentos e validação em tempo real.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>O sistema está em conformidade com regulamentações brasileiras?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, atendemos LGPD e diretrizes do Banco Central para prevenção de fraudes.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Como funciona a precificação?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oferecemos modelos flexíveis: assinatura mensal, pay-per-use e licenciamento anual.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>O sistema suporta grandes volumes de transações?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, processamos milhões de operações diárias mantendo performance e precisão.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>9/10</h3>
+                    <p>Principais bancos</p>
+                </div>
+                <div class="stat-item">
+                    <h3>690M</h3>
+                    <p>Ataques detectados</p>
+                </div>
+                <div class="stat-item">
+                    <h3>+180</h3>
+                    <p>Países atendidos</p>
+                </div>
+                <div class="stat-item">
+                    <h3>+345M</h3>
+                    <p>Transações diárias</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results/Contact Section -->
+    <section id="contact" class="results">
+        <div class="container results-content">
+            <div class="results-stats">
+                <div class="result-item">
+                    <h3>300%</h3>
+                    <p>aumento em detecção AML</p>
+                </div>
+                <div class="result-item">
+                    <h3>95%</h3>
+                    <p>identificação de fraudes e-commerce</p>
+                </div>
+                <div class="result-item">
+                    <h3>98%</h3>
+                    <p>detecção abuso de bônus</p>
+                </div>
+                <div class="result-item">
+                    <h3>99%</h3>
+                    <p>precisão em reconhecimento</p>
+                </div>
+            </div>
+            <div class="results-form">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">Previna fraudes com IA</h2>
+                <form id="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">Nome *</label>
+                            <input type="text" id="first-name" required>
+                            <div class="error-message">Este campo é obrigatório</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Sobrenome *</label>
+                            <input type="text" id="last-name" required>
+                            <div class="error-message">Este campo é obrigatório</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country-code">Código *</label>
+                            <select id="country-code" required>
+                                <option value="">Selecione</option>
+                                <option value="+55">+55 (Brasil)</option>
+                                <option value="+1">+1 (EUA)</option>
+                            </select>
+                            <div class="error-message">Selecione uma opção</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefone *</label>
+                            <input type="tel" id="phone" required>
+                            <div class="error-message">Este campo é obrigatório</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" required>
+                        <div class="error-message">Por favor, insira um email válido</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">País *</label>
+                            <select id="country" required>
+                                <option value="">Selecione</option>
+                                <option value="brazil">Brasil</option>
+                                <option value="usa">EUA</option>
+                            </select>
+                            <div class="error-message">Selecione uma opção</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sector">Setor *</label>
+                            <select id="sector" required>
+                                <option value="">Selecione</option>
+                                <option value="financial">Financeiro</option>
+                                <option value="retail">Varejo</option>
+                            </select>
+                            <div class="error-message">Selecione uma opção</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="help">Como podemos ajudar?</label>
+                        <textarea id="help" rows="4"></textarea>
+                    </div>
+                    <div class="captcha">
+                        <input type="checkbox" id="captcha" required>
+                        <label for="captcha">Não sou robô</label>
+                        <div class="error-message" style="display: none; margin-top: 5px;">Por favor, marque esta caixa</div>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Enviar</button>
+                </form>
+                <div class="form-footer">
+                    <p><a href="#">Termos</a> | <a href="#">Privacidade</a> | <a href="#">Cookies</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">FraudGuard® Risk Solutions</div>
+                    <p>Protegendo empresas há 50+ anos.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Termos</a>
+                    <a href="#">Privacidade</a>
+                    <a href="/docs">API Docs</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 FraudGuard® Risk Solutions. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle"></i>
+            <h3>Mensagem Enviada com Sucesso!</h3>
+            <p>Um especialista entrará em contato em breve.</p>
+            <button class="btn" onclick="closeModal()">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const a = q.nextElementSibling;
+                const t = q.querySelector('.faq-toggle');
+                document.querySelectorAll('.faq-answer').forEach(i => {
+                    if (i !== a && i.classList.contains('active')) {
+                        i.classList.remove('active');
+                        i.previousElementSibling.querySelector('.faq-toggle').classList.remove('active');
+                    }
+                });
+                a.classList.toggle('active');
+                t.classList.toggle('active');
+            });
+        });
+
+        // Form Validation
+        function validateField(field) {
+            const formGroup = field.closest('.form-group');
+            if (!formGroup) return true;
+
+            let isValid = true;
+
+            if (field.hasAttribute('required')) {
+                if (field.type === 'email') {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    isValid = emailRegex.test(field.value);
+                } else if (field.tagName === 'SELECT') {
+                    isValid = field.value !== '';
+                } else {
+                    isValid = field.value.trim() !== '';
+                }
+            }
+
+            if (isValid) {
+                formGroup.classList.remove('error');
+            } else {
+                formGroup.classList.add('error');
+            }
+
+            return isValid;
+        }
+
+        function validateCaptcha() {
+            const captcha = document.getElementById('captcha');
+            const captchaContainer = captcha.closest('.captcha');
+            const errorMsg = captchaContainer.querySelector('.error-message');
+
+            if (!captcha.checked) {
+                captchaContainer.classList.add('error');
+                errorMsg.style.display = 'block';
+                return false;
+            } else {
+                captchaContainer.classList.remove('error');
+                errorMsg.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validateForm() {
+            let isValid = true;
+
+            // Validate all required fields
+            const fields = ['first-name', 'last-name', 'country-code', 'phone', 'email', 'country', 'sector'];
+            fields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!validateField(field)) {
+                    isValid = false;
+                }
+            });
+
+            // Validate captcha
+            if (!validateCaptcha()) {
+                isValid = false;
+            }
+
+            // Scroll to first error
+            if (!isValid) {
+                const firstError = document.querySelector('.form-group.error, .captcha.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            return isValid;
+        }
+
+        // Real-time validation on blur
+        document.querySelectorAll('#contact-form input[required], #contact-form select[required]').forEach(field => {
+            field.addEventListener('blur', () => validateField(field));
+            field.addEventListener('change', () => validateField(field));
+        });
+
+        document.getElementById('captcha').addEventListener('change', validateCaptcha);
+
+        // Form Submit with Validation
+        document.getElementById('contact-form').addEventListener('submit', e => {
+            e.preventDefault();
+
+            if (validateForm()) {
+                // Show success modal
+                showModal();
+                // Reset form
+                e.target.reset();
+                // Remove all error states
+                document.querySelectorAll('.form-group.error').forEach(el => el.classList.remove('error'));
+                document.querySelector('.captcha').classList.remove('error');
+            }
+        });
+
+        // Modal Functions
+        function showModal() {
+            document.getElementById('success-modal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('success-modal').classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('success-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'success-modal') {
+                closeModal();
+            }
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
