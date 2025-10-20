@@ -784,9 +784,9 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 **Natália Barros**
 Desenvolvedora Python | Machine Learning Engineer
 
-- 💼 LinkedIn: [linkedin.com/in/natalia-barros](https://linkedin.com/in/natalia-barros)
-- 📧 Email: natalia.barros@email.com
-- 🐙 GitHub: [github.com/nataliabarros](https://github.com/nataliabarros)
+- 💼 LinkedIn: [lhttps://www.linkedin.com/in/nataliachagas1994/]
+- 📧 Email: natalia.goldenglowitsolutions@gmail.com
+- 🐙 GitHub: [https://github.com/nataliabarros1994]
 
 ---
 
